@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import UserNotifications
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,12 +19,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        FirebaseApp.configure()
+        
+        // registering for push notifications
+        UIApplication.shared.registerForRemoteNotifications()
+        
+        // Set the messaging delegate in applicationDidFinishLaunchingWithOptions
+        Messaging.messaging().delegate = self
+        
         let podcastVC = PodcastViewController()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = UINavigationController(rootViewController: podcastVC)
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("deviceToken: \(deviceToken)")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("didFailToRegisterForRemoteNotificationsWithError: \(error)")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -46,7 +64,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
+extension AppDelegate: MessagingDelegate {
+    // Receive the current registration token
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+        
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
+        
+        let token = Messaging.messaging().fcmToken
+        print("FCM token: \(token ?? "")")
+    }
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+        print("didReceive remoteMessage: \(remoteMessage)")
+    }
+}

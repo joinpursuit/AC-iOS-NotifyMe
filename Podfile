@@ -8,6 +8,8 @@ target 'NotifyMe' do
   # Pods for NotifyMe
 	pod ‘SnapKit’
 	pod ‘Kingfisher’
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
 
   target 'NotifyMeTests' do
     inherit! :search_paths

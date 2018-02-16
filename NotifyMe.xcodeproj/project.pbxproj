@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DC58475A39736E2C21AC538 /* Pods_NotifyMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53A57CDC269807ABF6405998 /* Pods_NotifyMeTests.framework */; };
+		574755B620376B720083E407 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 574755B520376B710083E407 /* GoogleService-Info.plist */; };
 		57A37D2D20365C280091F3BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A37D2C20365C280091F3BB /* AppDelegate.swift */; };
 		57A37D3420365C280091F3BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57A37D3320365C280091F3BB /* Assets.xcassets */; };
 		57A37D3720365C280091F3BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57A37D3520365C280091F3BB /* LaunchScreen.storyboard */; };
@@ -33,6 +34,8 @@
 /* Begin PBXFileReference section */
 		3E10D5E347FEBBCE70C0B3BC /* Pods_NotifyMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotifyMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53A57CDC269807ABF6405998 /* Pods_NotifyMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotifyMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		574755B520376B710083E407 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		574755B720376D770083E407 /* NotifyMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotifyMe.entitlements; sourceTree = "<group>"; };
 		57A37D2920365C280091F3BB /* NotifyMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotifyMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A37D2C20365C280091F3BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57A37D3320365C280091F3BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,6 +109,7 @@
 		57A37D2B20365C280091F3BB /* NotifyMe */ = {
 			isa = PBXGroup;
 			children = (
+				574755B720376D770083E407 /* NotifyMe.entitlements */,
 				57A37D5020365C670091F3BB /* Services */,
 				57A37D4F20365C600091F3BB /* Models */,
 				57A37D4E20365C550091F3BB /* Views */,
@@ -113,6 +117,7 @@
 				57A37D5D203664370091F3BB /* Storyboards */,
 				57A37D4C20365C3E0091F3BB /* Supporting Files */,
 				57A37D3820365C280091F3BB /* Info.plist */,
+				574755B520376B710083E407 /* GoogleService-Info.plist */,
 			);
 			path = NotifyMe;
 			sourceTree = "<group>";
@@ -241,7 +246,12 @@
 				TargetAttributes = {
 					57A37D2820365C280091F3BB = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					57A37D3C20365C280091F3BB = {
 						CreatedOnToolsVersion = 9.2;
@@ -275,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57A37D3720365C280091F3BB /* LaunchScreen.storyboard in Resources */,
+				574755B620376B720083E407 /* GoogleService-Info.plist in Resources */,
 				57A37D3420365C280091F3BB /* Assets.xcassets in Resources */,
 				57A37D58203660E10091F3BB /* podcasts.json in Resources */,
 			);
@@ -312,13 +323,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NotifyMe/Pods-NotifyMe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -548,12 +565,15 @@
 			baseConfigurationReference = EB9D8D49F2AD505A647AA1F1 /* Pods-NotifyMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2WW8645GW2;
+				CODE_SIGN_ENTITLEMENTS = NotifyMe/NotifyMe.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = NotifyMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alexcpaul.NotifyMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.c4q.firebase.pushnotifications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4ab7ae51-f64e-4215-bac9-b8b47ad6cab3";
+				PROVISIONING_PROFILE_SPECIFIER = "Firebase Remote Notifications Dev Profile";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -564,12 +584,14 @@
 			baseConfigurationReference = B9DB92817EAD4487A4DA7F25 /* Pods-NotifyMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2WW8645GW2;
+				CODE_SIGN_ENTITLEMENTS = NotifyMe/NotifyMe.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotifyMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alexcpaul.NotifyMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.c4q.firebase.pushnotifications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
